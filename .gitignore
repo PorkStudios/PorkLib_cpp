@@ -1,0 +1,17 @@
+#CMake files
+cmake-build-debug/
+cmake-build-release/
+
+# IntelliJ files
+.idea/
+.clion/
+*.iml
+*.ipr
+out/
+run/
+
+# misc.
+*.o
+*.a
+*.so
+*.log

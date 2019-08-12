@@ -1,0 +1,6 @@
+#ifndef PORKLIB_CPP_DEV_COMMON_H
+#define PORKLIB_CPP_DEV_COMMON_H
+
+void test();
+
+#endif //PORKLIB_CPP_DEV_COMMON_H
