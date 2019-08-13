@@ -1,7 +1,9 @@
 #include "common.h"
 
-#include <iostream>
+word Object::hashCode() {
+    return (word) this;
+}
 
-void test() {
-    std::cout << "name jef lol" << std::endl;
+bool Object::equals(Object *other) {
+    return this == other;
 }

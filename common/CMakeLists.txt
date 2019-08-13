@@ -1,7 +1,6 @@
 add_library(porklib_common "")
 
-target_sources(porklib_common PRIVATE
-        porklib/common.cpp)
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS "*.cpp" "*.h")
+target_sources(porklib_common PRIVATE ${sources})
 
-target_include_directories(porklib_common PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(porklib_common PUBLIC ${CMAKE_CURRENT_LIST_DIR})
