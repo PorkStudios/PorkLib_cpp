@@ -1,68 +1,33 @@
 #ifndef PORKLIB_CPP_DEV_COMMON_H
 #define PORKLIB_CPP_DEV_COMMON_H
 
-#include <jmorecfg.h>
+#include <type_traits>
 #include "types.h"
+#include "vectors.h"
 
 /**
- * Root class for all other classes, because I honestly prefer Java.
+ * Checks whether a type inherits from another type.
  *
- * @author DaPorkchop_
+ * @tparam B the requested type
+ * @tparam T the type to check
+ * @param ptr a pointer to an instance of the type to check
+ * @return whether or not the type inherits from the other type
  */
-class Object {
-    public:
-        /**
-         * Computes this object's hash code value.
-         *
-         * @return this object's hash code
-         */
-        virtual word hashCode();
-
-        /**
-         * Checks whether or not this object is equal to another one.
-         *
-         * @param other the other object to check for equality with
-         * @return whether or not the two object are equal
-         */
-        virtual bool equals(Object *other);
-
-        virtual ~Object() = 0;
-};
+template<typename B, typename T>
+inline bool instanceof(const T* ptr);
 
 /**
- * A type that has a certain size.
+ * Computes the length (in chars) of the given text.
  *
- * @author DaPorkchop_
+ * @param text the text
+ * @return the length of the text
  */
-class Sized : public Object {
-    public:
-        /**
-         * @return whether or not the instance is empty
-         */
-        virtual bool isEmpty() {
-            return this->size() == 0;
-        }
+word strlen(const char* text);
 
-        /**
-         * @return the size of this instance (the number of elements)
-         */
-        virtual word size() = 0;
+template<size_t N> struct unroll_uint_ {
 };
 
-/**
- * A sequence of characters.
- *
- * @author DaPorkchop_
- */
-class String : public Sized {
-    public:
-        /**
-         * Gets the character at a specific index.
-         * @param index the index of the character to get
-         * @return the character at the given index
-         * @throws
-         */
-        virtual u16 charAt(word index) = 0;
-};
+template<size_t N, typename Callback, typename IterT>
+inline void unroll(const Callback &f, const IterT &iter, unroll_uint_<N>);
 
 #endif //PORKLIB_CPP_DEV_COMMON_H

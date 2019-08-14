@@ -28,6 +28,9 @@ typedef __UINT32_TYPE__ u32;
 typedef __UINT64_TYPE__ u64;
 #endif
 
+typedef float f32;
+typedef double f64;
+
 //typedef __SIZE_TYPE__ size;
 typedef __SIZE_TYPE__ word;
 
