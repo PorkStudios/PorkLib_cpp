@@ -37,3 +37,7 @@ int main()  {
     a->b();
     a->c();
 }*/
+
+int main() {
+    printf("Hello World!\n");
+}

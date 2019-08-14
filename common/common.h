@@ -24,10 +24,10 @@ inline bool instanceof(const T* ptr);
  */
 word strlen(const char* text);
 
-template<size_t N> struct unroll_uint_ {
+template<size_t N> struct _unroll_uint_ {
 };
 
 template<size_t N, typename Callback, typename IterT>
-inline void unroll(const Callback &f, const IterT &iter, unroll_uint_<N>);
+inline void unroll(const Callback &f, const IterT &iter, _unroll_uint_<N>);
 
 #endif //PORKLIB_CPP_DEV_COMMON_H
