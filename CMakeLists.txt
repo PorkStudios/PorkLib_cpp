@@ -9,6 +9,8 @@ add_library(porklib_cpp "")
 
 file(GLOB_RECURSE sources CONFIGURE_DEPENDS "*.cpp" "*.h")
 list(FILTER sources EXCLUDE REGEX "/dev/*")
+list(FILTER sources EXCLUDE REGEX "cmake-build")
+#message(${sources})
 target_sources(porklib_cpp PRIVATE ${sources})
 
 target_include_directories(porklib_cpp PUBLIC ${CMAKE_CURRENT_LIST_DIR})

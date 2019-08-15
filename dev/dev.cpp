@@ -1,6 +1,5 @@
 #include <porklib.h>
 #include <iostream>
-#include <cstdio>
 
 /*class A {
     public:
@@ -40,4 +39,9 @@ int main()  {
 
 int main() {
     printf("Hello World!\n");
+    printf("size_t: %d", (int) sizeof(size_t));
+
+    vec3i a(1, 2, 3);
+    vec3i b = a + vec3i(4, 5, 6);
+    vec3i c = b * a;
 }
