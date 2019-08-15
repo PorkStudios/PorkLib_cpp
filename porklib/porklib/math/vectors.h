@@ -15,31 +15,14 @@ namespace porklib::math::vector {
 
         void set(T xIn, T yIn);
 
-        void normalize();
-        Vector2<T, F> cpyNormalize();
-        bool empty();
-        template<typename R = flt> R len();
-        template<typename R = flt> R sqlen();
-        inline f32 lenF() { return len<f32>(); }
-        inline f64 lenD() { return len<f64>(); }
-        inline f32 sqlenF() { return sqlen<f32>(); }
-        inline f64 sqlenD() { return sqlen<f64>(); }
-        template<typename A = T, typename R = A> R dot(A val);
-        template<typename A = T, typename R = A> R dot(const Vector2<A, F>& other);
-        void abs();
-        Vector2<T, F> cpyAbs();
-        bool equals(const Vector2<T, F>& other);
-        void floor();
-        template<typename R = F> Vector2<R> floorI();
-
         bool operator == (const Vector2<T, F> & other);
         bool operator != (const Vector2<T, F> & other);
-        bool operator > (const Vector2<T, F> & other);
-        bool operator < (const Vector2<T, F> & other);
-        bool operator += (const Vector2<T, F> & other);
-        bool operator -= (const Vector2<T, F> & other);
-        bool operator *= (const Vector2<T, F> & other);
-        bool operator /= (const Vector2<T, F> & other);
+        //bool operator > (const Vector2<T, F> & other);
+        //bool operator < (const Vector2<T, F> & other);
+        void operator += (const Vector2<T, F> & other);
+        void operator -= (const Vector2<T, F> & other);
+        void operator *= (const Vector2<T, F> & other);
+        void operator /= (const Vector2<T, F> & other);
 
         Vector2<T, F> operator+(T val);
         Vector2<T, F> operator+(const Vector2<T, F>& other);
@@ -60,6 +43,17 @@ namespace porklib::math::vector {
         Vector3(T val);
         Vector3(T x, T y, T z);
         Vector3(const Vector3<T, F>& other);
+
+        void set(T xIn, T yIn, T zIn);
+
+        bool operator == (const Vector3<T, F> & other);
+        bool operator != (const Vector3<T, F> & other);
+        //bool operator > (const Vector3<T, F> & other);
+        //bool operator < (const Vector3<T, F> & other);
+        void operator += (const Vector3<T, F> & other);
+        void operator -= (const Vector3<T, F> & other);
+        void operator *= (const Vector3<T, F> & other);
+        void operator /= (const Vector3<T, F> & other);
 
         Vector3<T, F> operator+(T val);
         Vector3<T, F> operator+(const Vector3<T, F>& other);
