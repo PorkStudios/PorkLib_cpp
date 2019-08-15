@@ -7,13 +7,11 @@ project(porklib_cpp)
 
 add_library(porklib_cpp "")
 
-file(GLOB_RECURSE sources CONFIGURE_DEPENDS "*.cpp" "*.h")
-list(FILTER sources EXCLUDE REGEX "/dev/*")
-list(FILTER sources EXCLUDE REGEX "cmake-build")
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/porklib/*.cpp" "${PROJECT_SOURCE_DIR}/porklib/*.h")
 #message(${sources})
 target_sources(porklib_cpp PRIVATE ${sources})
 
-target_include_directories(porklib_cpp PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(porklib_cpp PUBLIC ${PROJECT_SOURCE_DIR}/porklib/)
 
 # Define dev
 add_subdirectory(dev)

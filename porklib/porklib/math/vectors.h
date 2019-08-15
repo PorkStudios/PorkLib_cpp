@@ -1,7 +1,7 @@
 #ifndef PORKLIB_CPP_VECTORS_H
 #define PORKLIB_CPP_VECTORS_H
 
-#include "common/types.h"
+#include "porklib/common/types.h"
 
 namespace pork::math::vector {
     template<typename T>

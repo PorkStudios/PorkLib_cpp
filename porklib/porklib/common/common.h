@@ -2,7 +2,7 @@
 #define PORKLIB_CPP_DEV_COMMON_H
 
 #include "types.h"
-#include "math/vectors.h"
+#include "porklib/math/vectors.h"
 
 /**
  * Checks whether a type inherits from another type.
