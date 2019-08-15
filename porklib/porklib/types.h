@@ -52,4 +52,16 @@ typedef size_t word;
 typedef float f32;
 typedef double f64;
 
+#if __WORDSIZE == 64
+typedef u64 unum;
+typedef i64 inum;
+typedef f64 flt;
+#else
+typedef u32 unum;
+typedef i32 inum;
+typedef f32 flt;
+#endif
+
+typedef bool boolean;
+
 #endif //PORKLIB_CPP_TYPES_H

@@ -1,8 +1,7 @@
 #ifndef PORKLIB_CPP_DEV_COMMON_H
 #define PORKLIB_CPP_DEV_COMMON_H
 
-#include "types.h"
-#include "porklib/math/vectors.h"
+#include "porklib/types.h"
 
 /**
  * Checks whether a type inherits from another type.
