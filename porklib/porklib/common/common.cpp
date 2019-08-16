@@ -1,9 +1,6 @@
 #include "common.h"
 
-template<typename B, typename T>
-inline bool instanceof(const T *ptr) {
-    return dynamic_cast<const B *>(ptr) != nullptr;
-}
+using namespace porklib;
 
 word strlen(const char* text) {
     word i = 0;
@@ -11,10 +8,4 @@ word strlen(const char* text) {
         i++;
     }
     return i;
-}
-
-template <size_t N, typename Callback, typename IterT>
-inline void unroll(const Callback& f, const IterT& iter, _unroll_uint_<N>) {
-    unroll(f, iter, _unroll_uint_<N-1>());
-    f(iter + N);
 }

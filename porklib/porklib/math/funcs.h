@@ -6,6 +6,9 @@
 namespace porklib::math {
     template<typename R = flt, typename A = R>
     R sqrt(A val);
+
+    template<typename R = flt, typename A = R>
+    R pow(A val, A amount);
 }
 
 #endif //PORKLIB_CPP_FUNCS_H

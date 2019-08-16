@@ -3,6 +3,7 @@
 
 #include "porklib/types.h"
 #include "porklib/common/common.h"
+#include "porklib/crypto/crypto.h"
 #include "porklib/math/math.h"
 
 #endif
