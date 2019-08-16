@@ -6,22 +6,36 @@
 namespace porklib::crypto {
     template<size_t SIZE>
     struct Digest {
-        const size_t size = SIZE;
-        char hash[SIZE] = {0};
+        u8 hash[SIZE] = {0};
 
         Digest() = default;
-        virtual ~Digest() = 0;
+        virtual ~Digest() = default;
 
         virtual void init() = 0;
-
-        virtual void update(char(& block)[SIZE]) = 0;
-        virtual void update(char(* block)[SIZE]) = 0;
-
+        virtual void update(const void* data, size_t length) = 0;
         virtual void finish() = 0;
 
-        virtual void get(char(& out)[SIZE]) = 0;
-        virtual void get(char(* out)[SIZE]) = 0;
-        virtual char* get() { return this->hash; }
+        char* asHex() {
+            static const char* hex = "0123456789abcdef";
+
+            auto text = new char[SIZE * 2 + 1];
+            for (size_t i = SIZE; i--;) {
+                u8 val = this->hash[i];
+                text[i << 1] = hex[val & 0xF];
+                text[(i << 1) + 1] = hex[val >> 4];
+            }
+            return text;
+        };
+
+        inline size_t size() { return SIZE; };
+    };
+
+    template<size_t SIZE, typename BLOCK_TYPE, size_t BLOCK_SIZE>
+    struct BlockDigest: Digest<SIZE> {
+        BLOCK_TYPE buf[BLOCK_SIZE];
+
+        BlockDigest() = default;
+        virtual ~BlockDigest() = 0;
     };
 
     //Digest* createDigest(const char* name);
