@@ -7,9 +7,9 @@ namespace porklib::crypto {
     template<size_t SIZE>
     struct Digest {
         const size_t size = SIZE;
-        char hash[SIZE];
+        char hash[SIZE] = {0};
 
-        virtual Digest() = 0;
+        Digest() = default;
         virtual ~Digest() = 0;
 
         virtual void init() = 0;
@@ -24,8 +24,8 @@ namespace porklib::crypto {
         virtual char* get() { return this->hash; }
     };
 
-    Digest* createDigest(const char* name);
-    Digest* createDigest(char* name);
+    //Digest* createDigest(const char* name);
+    //Digest* createDigest(char* name);
 }
 
 #endif //PORKLIB_CPP_DIGEST_H

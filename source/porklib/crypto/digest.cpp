@@ -4,8 +4,6 @@
 
 using namespace porklib::crypto;
 
-Digest* createDigest(char* name) {
+/*Digest* createDigest(char* name) {
     return nullptr;
-}
-
-
+}*/
