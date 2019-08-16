@@ -10,7 +10,7 @@ inline R porklib::math::sqrt(A val) {
 #if __WORDSIZE == 64
     return static_cast<R>(std::sqrt(static_cast<f64>(val)));
 #else
-    return static_cast<R>(std::sqrtf(static_cast<f32>(val)));
+    return static_cast<R>(std::sqrt(static_cast<f32>(val)));
 #endif
 }
 #define SQRT_THING(r, a) template r porklib::math::sqrt<r, a>(a);

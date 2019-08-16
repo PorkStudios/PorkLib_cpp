@@ -7,7 +7,7 @@ project(porklib_cpp)
 
 add_library(porklib_cpp "")
 
-file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/source/*.cpp")
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/source/*.cpp" "${PROJECT_SOURCE_DIR}/source/*.s")
 file(GLOB_RECURSE headers CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/source/*.h")
 #message(${sources})
 target_sources(porklib_cpp PRIVATE ${sources} PUBLIC ${headers})

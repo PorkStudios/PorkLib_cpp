@@ -1,7 +1,7 @@
 #ifndef PORKLIB_CPP_SHA1_H
 #define PORKLIB_CPP_SHA1_H
 
-#include "porklib/crypto/digest.h"
+#include "../digest.h"
 
 #ifdef NDS
 #ifdef DSI
@@ -24,9 +24,9 @@ namespace porklib::crypto::digest {
         SHA1() = default;
         ~SHA1() final = default;
 
-        virtual void init() final;
-        virtual void update(const void* data, size_t length) final;
-        virtual void finish() final;
+        void init() final;
+        void update(const void* data, size_t length) final;
+        void finish() final;
     };
 }
 
