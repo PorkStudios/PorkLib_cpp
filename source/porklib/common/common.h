@@ -13,7 +13,7 @@ namespace porklib {
      * @return whether or not the type inherits from the other type
      */
     template<typename B, typename T>
-    inline bool instanceof(const T* ptr) { return dynamic_cast<const B *>(ptr) != nullptr; };
+    inline bool instanceof(const T* ptr) { return dynamic_cast<const B*>(ptr) != nullptr; };
 
     /**
      * Computes the length (in chars) of the given text.
@@ -21,7 +21,15 @@ namespace porklib {
      * @param text the text
      * @return the length of the text
      */
-    word strlen(const char* text);
+    word lengthOf(const char* text);
+
+    /**
+     * Formats the given string with the given arguments into a single NUL-terminated output string.
+     * @param format the base format
+     * @param ... arguments to the formatter
+     * @return the formatted, NUL-terminated message. This must be freed once no longer needed!
+     */
+    const char* fmt(const char* format, ...);
 
     template<typename T, size_t S>
     struct array {
@@ -30,12 +38,12 @@ namespace porklib {
             T data[S];
         public:
             void fill(T& val) {
-                for (size_t i = S; i--;)    {
+                for (size_t i = S; i--;) {
                     this->data[i] = val;
                 }
             }
 
-            T& operator [](size_t i)  {
+            T& operator[](size_t i) {
                 return this->data[i];
             }
     };
