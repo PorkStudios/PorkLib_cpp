@@ -17,3 +17,4 @@
 *.cpp text=auto eol=lf
 *.h text=auto eol=lf
 *.hpp text=auto eol=lf
+*.s text=auto eol=lf
