@@ -30,23 +30,6 @@ namespace porklib {
      * @return the formatted, NUL-terminated message. This must be freed once no longer needed!
      */
     const char* fmt(const char* format, ...);
-
-    template<typename T, size_t S>
-    struct array {
-        private:
-            size_t length = S;
-            T data[S];
-        public:
-            void fill(T& val) {
-                for (size_t i = S; i--;) {
-                    this->data[i] = val;
-                }
-            }
-
-            T& operator[](size_t i) {
-                return this->data[i];
-            }
-    };
 }
 
 #endif //PORKLIB_CPP_DEV_COMMON_H

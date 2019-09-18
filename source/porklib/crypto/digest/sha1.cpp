@@ -69,18 +69,4 @@ void SHA1::finish() {
 
 #else
 
-void SHA1::init() final {
-    this->buf[0] = 0x67452301;
-    this->buf[1] = 0xEFCDAB89;
-    this->buf[2] = 0x98BADCFE;
-    this->buf[3] = 0x10325476;
-    this->buf[4] = 0x67452301;
-}
-
-void SHA1::update(u8* data, size_t length) final {
-}
-
-void SHA1::finish() final {
-}
-
 #endif
