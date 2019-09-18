@@ -18,7 +18,7 @@ namespace porklib::crypto::digest {
     };
     #endif
 
-    struct SHA1 final: Digest<20> {
+    struct SHA1: Digest {
         #ifdef DSI
         nds_SHA1context context = nds_SHA1context();
         #else
@@ -26,11 +26,12 @@ namespace porklib::crypto::digest {
         #endif
 
         SHA1() = default;
-        ~SHA1() final = default;
+        ~SHA1() = default;
 
         void init() final;
         void update(const void* data, size_t length) final;
         void finish() final;
+        virtual size_t size() final;
     };
 }
 

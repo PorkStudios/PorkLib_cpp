@@ -5,7 +5,7 @@ project(porklib_cpp)
 
 # Define libraries
 
-add_library(porklib_cpp "" source/porklib/binary/binary.h)
+add_library(porklib_cpp "" source/porklib/binary/binary.h source/porklib/binary/binary.cpp)
 
 file(GLOB_RECURSE sources CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/source/*.cpp" "${PROJECT_SOURCE_DIR}/source/*.s")
 file(GLOB_RECURSE headers CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/source/*.h")

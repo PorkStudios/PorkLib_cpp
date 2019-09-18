@@ -12,10 +12,10 @@ namespace porklib::binary {
      * @author DaPorkchop_
      */
     struct Sink {
-        template<typename T> void put(const T* const data) { this->put(data, sizeof(T)); }
-        virtual void put(const void* const data, size_t bytes) = 0;
-
         virtual ~Sink() = 0;
+
+        template<typename T> void put(const T* data) { this->put(data, sizeof(T)); }
+        virtual void put(const void* data, size_t bytes) = 0;
     };
 
     /**
@@ -25,30 +25,40 @@ namespace porklib::binary {
      *
      * @author DaPorkchop_
      */
-    struct Source   {
+    struct Source {
+        virtual ~Source() = 0;
+
         template<typename T> void get(const T* data) { this->get(data, sizeof(T)); }
         virtual void get(const void* data, size_t bytes) = 0;
-
-        virtual ~Source() = 0;
     };
 
     /**
-     * A combination of a {@link Sink} and a {@link Source} with independent reader and writer indices over a block
-     * of data (generally contiguous, generally in memory).
+     * A buffer with independent reader and writer indices.
+     * <p>
+     * Similar to Netty's ByteBuf.
      *
      * @author DaPorkchop_
      */
-    struct Buffer : Sink, Source {
+    struct Buffer {
+        virtual ~Buffer() = 0;
+
         constexpr size_t readerIndex() { return this->m_readerIndex; }
         constexpr size_t writerIndex() { return this->m_writerIndex; }
         constexpr size_t readable() { return this->m_writerIndex - this->m_readerIndex; }
         constexpr boolean isReadable() { return this->m_readerIndex < this->m_writerIndex; }
 
-        virtual ~Buffer() = 0;
+        virtual void write(const void* data, size_t bytes) = 0;
+        virtual void read(const void* data, size_t bytes) = 0;
+
+        virtual Sink* sink();
+        virtual Source* source();
+
     protected:
         size_t m_readerIndex = 0;
         size_t m_writerIndex = 0;
     };
+
+    struct
 }
 
 #endif //PORKLIB_CPP_BINARY_H

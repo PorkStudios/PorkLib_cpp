@@ -1,9 +1,7 @@
 #include "digest.h"
 
-#include "digest/sha1.h"
-
-using namespace porklib::crypto;
-
-/*Digest* createDigest(char* name) {
-    return nullptr;
-}*/
+namespace porklib::crypto {
+    //apparently the pure virtual destructor needs to be declared even though it's pure virtual
+    //man c++ is weird
+    Digest::~Digest() {}
+}

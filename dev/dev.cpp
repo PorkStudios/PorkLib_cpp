@@ -12,4 +12,8 @@ int main() {
     printf("(%d,%d,%d)\n", c.x, c.y, c.z);
     c = c * 4;
     printf("(%d,%d,%d) %d %d\n", c.x, c.y, c.z, c == b, c == c);
+
+    porklib::crypto::Digest* digest = new porklib::crypto::digest::SHA1();
+    digest->init();
+    delete digest;
 }

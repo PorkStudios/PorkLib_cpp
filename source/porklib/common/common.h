@@ -30,6 +30,13 @@ namespace porklib {
      * @return the formatted, NUL-terminated message. This must be freed once no longer needed!
      */
     const char* fmt(const char* format, ...);
+
+    /**
+     * A type that contains a number of values.
+     * @tparam T
+     */
+    template<typename T> struct Collection   {
+    };
 }
 
 #endif //PORKLIB_CPP_DEV_COMMON_H
