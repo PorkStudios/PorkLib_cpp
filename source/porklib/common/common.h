@@ -43,7 +43,7 @@ namespace porklib {
      *
      * @tparam T the type of value stored in this collection
      */
-    template<typename T> struct Collection   {
+    template<typename T> struct Collection {
         Collection() = default;
         virtual ~Collection() = 0;
 
@@ -59,10 +59,37 @@ namespace porklib {
 
         /**
          * Checks whether or not the given value is contained in this collection.
+         *
          * @param value the value to check for the presence of
          * @return whether or not the value is contained in this collection
          */
         virtual bool contains(T value) = 0;
+
+        /**
+         * Removes the given value from this collection.
+         * <p>
+         * Note that if the value is present in this collection multiple times, this will only remove one of them.
+         *
+         * @param value the value to remove
+         * @return whether or not the value was removed
+         */
+        virtual bool remove(T value) = 0;
+
+        /**
+         * Removes every occurrence of the given value from this collection.
+         * <p>
+         * Similar to {@link #remove(T)}, but removes all occurrences instead of just one.
+         *
+         * @param value the value to remove
+         * @return whether or not at least one occurrence of the value was removed
+         */
+        virtual bool removeAll(T value) {
+            bool changed = false;
+            while (this->remove(value)) {
+                changed = true;
+            }
+            return changed;
+        }
 
         /**
          * Iterates over every value in this collection and runs the given function on it.
@@ -86,6 +113,13 @@ namespace porklib {
          * cleared).
          */
         virtual void clear() = 0;
+    };
+
+    /**
+     *
+     * @tparam T
+     */
+    template<typename T> struct List: Collection<T> {
     };
 }
 
