@@ -57,8 +57,6 @@ namespace porklib::binary {
         size_t m_readerIndex = 0;
         size_t m_writerIndex = 0;
     };
-
-    struct
 }
 
 #endif //PORKLIB_CPP_BINARY_H
