@@ -66,13 +66,13 @@ namespace porklib::crypto::digest {
 #else
     void SHA1::init() {
     }
-    void SHA1::update(const void* data, size_t length) {
+    void SHA1::update(const void* data, u_size length) {
     }
     void SHA1::finish() {
     }
 #endif
 
-    size_t SHA1::size() {
+    u_size SHA1::size() {
         return 20;
     }
 }

@@ -3,7 +3,8 @@
 
 #include <cstdint>
 
-typedef std::size_t size_t;
+typedef std::size_t u_size;
+constexpr u_size SIZE_NULL = (1 << sizeof(u_size) << 3) - 1;
 
 //(u)int_fast32_t is 32-bit on 32-bit machines and 64-bit on 64-bit machines, i'm not expecting to deal with anything lower than that in the near/far future
 typedef std::uint_fast32_t word;
@@ -33,5 +34,14 @@ typedef f32 flt;
 #endif
 
 typedef bool boolean;
+
+namespace porklib {
+    /**
+     * A function that can accept a single value of type T.
+     *
+     * @tparam T the parameter type
+     */
+    template<typename T> using Consumer = void (*)(T);
+}
 
 #endif //PORKLIB_CPP_TYPES_H

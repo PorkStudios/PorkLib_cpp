@@ -25,6 +25,7 @@ namespace porklib {
 
     /**
      * Formats the given string with the given arguments into a single NUL-terminated output string.
+     *
      * @param format the base format
      * @param ... arguments to the formatter
      * @return the formatted, NUL-terminated message. This must be freed once no longer needed!
@@ -32,11 +33,12 @@ namespace porklib {
     const char* fmt(const char* format, ...);
 
     /**
-     * A function that can accept a single value of type T.
+     * Fills the given memory block with zeroes, starting at the given address.
      *
-     * @tparam T the parameter type
+     * @param ptr the address to start writing zeroes at
+     * @param bytes the number of bytes to zero out
      */
-    template<typename T> using Consumer = void (*)(T);
+    inline void zero(const void* ptr, u_size bytes);
 
     /**
      * A type that contains a number of values.
@@ -103,7 +105,7 @@ namespace porklib {
         /**
          * @return the number of elements in this collection
          */
-        virtual size_t size() = 0;
+        virtual u_size size() = 0;
 
         /**
          * Removes all values from this collection.
@@ -116,10 +118,54 @@ namespace porklib {
     };
 
     /**
+     * A {@link Collection} with a fixed order. All items are given a specific index.
+     * <p>
+     * Adding or removing elements at indices not at the end of the list will result in all following values
+     * being displaced in the list (i.e. they will be moved forwards or back to make place for/fill the gap from
+     * the added/removed value).
      *
-     * @tparam T
+     * @tparam T the type of value stored in this list
      */
     template<typename T> struct List: Collection<T> {
+        virtual ~List() = 0;
+
+        /**
+         * Gets the value stored in this list at the given index.
+         *
+         * @param index the index of the element to get
+         * @return the value at the given index
+         * //TODO: @throws IndexOutOfBoundsException if the given index is out of bounds
+         */
+        virtual T get(u_size index) = 0;
+
+        /**
+         * Gets the index of the given value in this list.
+         * <p>
+         * Generally implemented as a brute-force search, iterating over every element in the list until a matching one is found.
+         *
+         * @param value the value to search for
+         * @return the index of the given value in this list, or {@link SIZE_NULL} if none is found
+         */
+        virtual u_size indexOf(T value) = 0;
+    };
+
+    template<typename T> struct ArrayList: List<T>  {
+    private:
+        T* data;
+        u_size capacity;
+        u_size m_size;
+    public:
+        ArrayList();
+        ArrayList(u_size initialCapacity);
+        ~ArrayList() override;
+        bool add(T value) override;
+        bool contains(T value) override;
+        bool remove(T value) override;
+        void forEach(Consumer <T> function) override;
+        u_size size() override;
+        void clear() override;
+        T get(u_size index) override;
+        u_size indexOf(T value) override;
     };
 }
 

@@ -10,7 +10,7 @@ namespace porklib::encoding {
      * @param input the input data
      * @return a heap pointer to a NUL-terminated hex string. This must be freed once no longer needed!
      */
-    const char* toHex(size_t size, const u8* input);
+    const char* toHex(u_size size, const u8* input);
 }
 
 #endif //PORKLIB_CPP_ENCODING_H

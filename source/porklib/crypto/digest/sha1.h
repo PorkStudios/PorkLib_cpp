@@ -29,9 +29,9 @@ namespace porklib::crypto::digest {
         ~SHA1() = default;
 
         void init() final;
-        void update(const void* data, size_t length) final;
+        void update(const void* data, u_size length) final;
         void finish() final;
-        virtual size_t size() final;
+        virtual u_size size() final;
     };
 }
 

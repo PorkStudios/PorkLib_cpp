@@ -10,9 +10,9 @@ namespace porklib::crypto {
         virtual ~Digest() = 0;
 
         virtual void init() = 0;
-        virtual void update(const void* data, size_t length) = 0;
+        virtual void update(const void* data, u_size length) = 0;
         virtual void finish() = 0;
-        virtual size_t size() = 0;
+        virtual u_size size() = 0;
     };
 
     //Digest* createDigest(const char* name);
