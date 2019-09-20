@@ -36,12 +36,16 @@ typedef f32 flt;
 typedef bool boolean;
 
 namespace porklib {
-    /**
-     * A function that can accept a single value of type T.
-     *
-     * @tparam T the parameter type
-     */
-    template<typename T> using Consumer = void (*)(T);
+    template<typename A> using Consumer = void (*)(A);
+    template<typename A, typename B> using BiConsumer = void (*)(A, B);
+    template<typename R> using Supplier = R (*)();
+    template<typename A, typename R> using Function = R (*)(A);
+    template<typename A, typename B, typename R> using BiFunction = R (*)(A, B);
+
+    namespace lambda {
+        template<typename A> void noop_Consumer(A a) {}
+        template<typename A, typename B> void noop_BiConsumer(A a, B b) {}
+    }
 }
 
 #endif //PORKLIB_CPP_TYPES_H

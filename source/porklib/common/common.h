@@ -38,7 +38,16 @@ namespace porklib {
      * @param ptr the address to start writing zeroes at
      * @param bytes the number of bytes to zero out
      */
-    inline void zero(const void* ptr, u_size bytes);
+    void zero(void* const ptr, u_size bytes);
+
+    /**
+     * Copies the given memory block to the given destination memory block.
+     *
+     * @param src the first address to start copying from
+     * @param dst the first address to start copying to
+     * @param bytes the number of bytes to copy
+     */
+    void copy(void* const src, void* const dst, u_size bytes);
 
     /**
      * A type that contains a number of values.
@@ -47,7 +56,7 @@ namespace porklib {
      */
     template<typename T> struct Collection {
         Collection() = default;
-        virtual ~Collection() = 0;
+        virtual ~Collection() = default;
 
         /**
          * Adds the given value to this collection.
@@ -100,7 +109,7 @@ namespace porklib {
          *
          * @param function the function to run
          */
-        virtual void forEach(Consumer<T> function) = 0;
+        virtual void forEach(Consumer <T> function) = 0;
 
         /**
          * @return the number of elements in this collection
@@ -127,7 +136,11 @@ namespace porklib {
      * @tparam T the type of value stored in this list
      */
     template<typename T> struct List: Collection<T> {
-        virtual ~List() = 0;
+        virtual ~List() = default;
+
+        bool add(T value) override = 0;
+        bool contains(T value) override = 0;
+        bool remove(T value) override = 0;
 
         /**
          * Gets the value stored in this list at the given index.
@@ -147,25 +160,75 @@ namespace porklib {
          * @return the index of the given value in this list, or {@link SIZE_NULL} if none is found
          */
         virtual u_size indexOf(T value) = 0;
+
+        void forEach(Consumer <T> function) override = 0;
+        u_size size() override = 0;
+        void clear() override = 0;
     };
 
-    template<typename T> struct ArrayList: List<T>  {
+    template<typename T, Consumer <T> DESTROY = lambda::noop_Consumer> struct ArrayList: List<T> {
     private:
         T* data;
         u_size capacity;
         u_size m_size;
     public:
-        ArrayList();
-        ArrayList(u_size initialCapacity);
-        ~ArrayList() override;
-        bool add(T value) override;
-        bool contains(T value) override;
-        bool remove(T value) override;
-        void forEach(Consumer <T> function) override;
-        u_size size() override;
-        void clear() override;
-        T get(u_size index) override;
-        u_size indexOf(T value) override;
+        ArrayList(): data(new T[16]), capacity(16), m_size(0) {}
+        ArrayList(u_size initialCapacity): data(new T[initialCapacity]), capacity(initialCapacity), m_size(0) {}
+        ~ArrayList() {
+            this->clear();
+            delete this->data;
+        };
+
+        bool add(T value) override {
+            if (this->m_size == this->capacity) {
+                T* old_data = this->data;
+                copy(old_data, this->data = new T[this->capacity <<= 1], this->m_size * sizeof(T));
+                delete old_data;
+            }
+            this->data[this->m_size++] = value;
+            return true;
+        }
+
+        bool contains(T value) override {
+            for (u_size i = 0; i < this->m_size; i++) {
+                if (this->data[i] == value) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        bool remove(T value) override {
+            throw "unimplemented";
+        }
+
+        void forEach(Consumer <T> function) override {
+            for (u_size i = 0; i < this->m_size; i++) {
+                function(this->data[i]);
+            }
+        }
+
+        u_size size() override { return this->m_size; }
+
+        void clear() override {
+            for (u_size i = 0; i < this->m_size; i++) {
+                DESTROY(this->data[i]);
+            }
+            this->m_size = 0;
+        }
+
+        T get(u_size index) override {
+            throw "unimplemented";
+        }
+
+        u_size indexOf(T value) override {
+            for (u_size i = 0; i < this->m_size; i++) {
+                if (this->data[i] == value) {
+                    return i;
+                }
+            }
+            return SIZE_NULL;
+        }
     };
 }
 
