@@ -173,7 +173,7 @@ namespace porklib {
         u_size m_size;
     public:
         ArrayList(): data(new T[16]), capacity(16), m_size(0) {}
-        ArrayList(u_size initialCapacity): data(new T[initialCapacity]), capacity(initialCapacity), m_size(0) {}
+        ArrayList(u_size initialCapacity): data(initialCapacity <= 0 ? nullptr : new T[initialCapacity]), capacity(initialCapacity), m_size(0) {}
         ~ArrayList() {
             this->clear();
             delete this->data;
@@ -228,6 +228,17 @@ namespace porklib {
                 }
             }
             return SIZE_NULL;
+        }
+
+        /**
+         * Trims the size of the backing array to be exactly the same as the number of elements in the list.
+         */
+        void trim() {
+            if (this->capacity > this->m_size)  {
+                T* old_data = this->data;
+                copy(old_data, this->data = new T[this->capacity = this->m_size], this->m_size * sizeof(T));
+                delete old_data;
+            }
         }
     };
 }

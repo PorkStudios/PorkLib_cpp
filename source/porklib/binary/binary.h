@@ -12,7 +12,7 @@ namespace porklib::binary {
      * @author DaPorkchop_
      */
     struct Sink {
-        virtual ~Sink() = 0;
+        virtual ~Sink() = default;
 
         template<typename T> void put(const T* data) { this->put(data, sizeof(T)); }
         virtual void put(const void* data, u_size bytes) = 0;
@@ -26,7 +26,7 @@ namespace porklib::binary {
      * @author DaPorkchop_
      */
     struct Source {
-        virtual ~Source() = 0;
+        virtual ~Source() = default;
 
         template<typename T> void get(const T* data) { this->get(data, sizeof(T)); }
         virtual void get(const void* data, u_size bytes) = 0;
@@ -40,7 +40,7 @@ namespace porklib::binary {
      * @author DaPorkchop_
      */
     struct Buffer {
-        virtual ~Buffer() = 0;
+        virtual ~Buffer() = default;
 
         constexpr u_size readerIndex() { return this->m_readerIndex; }
         constexpr u_size writerIndex() { return this->m_writerIndex; }

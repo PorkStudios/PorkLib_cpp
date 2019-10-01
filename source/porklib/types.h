@@ -37,15 +37,23 @@ typedef bool boolean;
 
 namespace porklib {
     template<typename A> using Consumer = void (*)(A);
-    template<typename A, typename B> using BiConsumer = void (*)(A, B);
+    template<typename A, typename B = A> using BiConsumer = void (*)(A, B);
     template<typename R> using Supplier = R (*)();
-    template<typename A, typename R> using Function = R (*)(A);
-    template<typename A, typename B, typename R> using BiFunction = R (*)(A, B);
+    template<typename R, typename A> using Function = R (*)(A);
+    template<typename R, typename A, typename B = A> using BiFunction = R (*)(A, B);
+
+    //specifications
+    template<typename A> using Predicate = Function<bool, A>;
+    template<typename A, typename B = A> using BiPredicate = BiFunction<bool, A, B>;
+    template<typename A> using HashCode = Function<word, A>;
+    template<typename A> using Equals = BiPredicate<A>;
 
     namespace lambda {
         template<typename A> void noop_Consumer(A a) {}
         template<typename A, typename B> void noop_BiConsumer(A a, B b) {}
     }
 }
+
+#define IS_BIG_ENDIAN (*(uint16_t *)"\0\xff" < 0x100)
 
 #endif //PORKLIB_CPP_TYPES_H

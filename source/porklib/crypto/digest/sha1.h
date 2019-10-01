@@ -1,11 +1,12 @@
 #ifndef PORKLIB_CPP_SHA1_H
 #define PORKLIB_CPP_SHA1_H
 
-#include "../digest.h"
-
 #if NDS && !DSI
 #error SHA1 not supported on DS lite!
 #endif
+
+#include <porklib/crypto/digest.h>
+#include <porklib/math/math.h>
 
 namespace porklib::crypto::digest {
     #ifdef DSI
@@ -21,17 +22,65 @@ namespace porklib::crypto::digest {
     struct SHA1: Digest {
         #ifdef DSI
         nds_SHA1context context = nds_SHA1context();
-        #else
-        u64 ml;
-        #endif
-
-        SHA1() = default;
-        ~SHA1() = default;
 
         void init() final;
         void update(const void* data, u_size length) final;
-        void finish() final;
-        virtual u_size size() final;
+        void finish(void* dst) final;
+        #else
+        u32 h[5];
+        u64 ml;
+        u8 buffer[64];
+        uword fragment_size;
+
+        void init() final {
+            this->h[0] = 0x67452301;
+            this->h[1] = 0xEFCDAB89;
+            this->h[2] = 0x98BADCFE;
+            this->h[3] = 0x10325476;
+            this->h[4] = 0xC3D2E1F0;
+            this->ml = 0;
+            this->fragment_size = 0;
+        }
+
+        void update(const void* data, u_size length) final {
+            this->ml += length * 8;
+            uword fragment_size = this->fragment_size;
+            if (fragment_size != 0 && fragment_size + length >= 0x40)   {
+                length -= fragment_size;
+                porklib::copy(data, &this->buffer[fragment_size], 0x40 - fragment_size);
+                data += fragment_size;
+                fragment_size = 0;
+            }
+        }
+
+        void sha1_round(const u8* data, u_size length) {
+            for (uword j = length >> 6; j--;)   {
+                u32 w[80];
+                for (uword i = 16; i < 80; i++) {
+                    w[i] = porklib::math::rol(w[i - 3] ^ w[i - 3] ^ w[i - 3] ^ w[i - 3], 1);
+                }
+
+                u32 a = this->h[0];
+                u32 b = this->h[1];
+                u32 c = this->h[2];
+                u32 d = this->h[3];
+                u32 e = this->h[4];
+                for (uword i = 0; i < 80; i++)    {
+                    if (i <= 19)    {
+
+                    }
+                }
+            }
+        }
+
+        void finish(void* dst) final {
+        }
+        #endif
+
+        u_size size() final { return 20; }
+
+        SHA1() = default;
+        ~SHA1() = default;
     };
 }
 

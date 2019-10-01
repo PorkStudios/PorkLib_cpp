@@ -7,7 +7,7 @@ namespace porklib::math {
     template<typename P, typename R = P> inline R sqrt(P value) {
         static_assert(sizeof(P) == 1 || sizeof(P) == 2 || sizeof(P) == 4 || sizeof(P) == 8);
 
-        switch (sizeof(P))  { //switch should be totally shortened away at compile time
+        switch (sizeof(P)) { //switch should be totally shortened away at compile time
             case 1:
             case 2:
             case 4:
@@ -21,11 +21,11 @@ namespace porklib::math {
         static_assert(sizeof(P) == 1 || sizeof(P) == 2 || sizeof(P) == 4 || sizeof(P) == 8);
         static_assert(sizeof(E) == 1 || sizeof(E) == 2 || sizeof(E) == 4 || sizeof(E) == 8);
 
-        switch (sizeof(P))  { //switch should be totally shortened away at compile time
+        switch (sizeof(P)) { //switch should be totally shortened away at compile time
             case 1:
             case 2:
             case 4:
-                switch (sizeof(E))  {
+                switch (sizeof(E)) {
                     case 1:
                     case 2:
                     case 4:
@@ -41,6 +41,16 @@ namespace porklib::math {
     template<typename T> T max(T a, T b) { return a > b ? a : b; }
     template<typename T> T min(T a, T b) { return a < b ? a : b; }
     template<typename T> T clamp(T val, T min, T max) { return min(max(val, min), max); }
+
+    template<typename T> inline T ror(T value, T amount) {
+        const unsigned int mask = (sizeof(T) * 8 - 1);
+        amount &= mask;
+        return (value << amount) | (value >> ((-amount) & mask));
+    }
+
+    template<typename T> inline T rol(T value, T amount) {
+        return ror(value, -amount);
+    }
 }
 
 #include <porklib/math/vectors.h>

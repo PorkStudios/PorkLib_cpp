@@ -50,8 +50,8 @@ namespace porklib::crypto::digest {
         );*/
     }
 
-    void SHA1::finish() {
-        swiSHA1Final_asm(&this->hash, &this->context);
+    void SHA1::finish(void* dst) {
+        swiSHA1Final_asm(dst, &this->context);
         /*register void* s_hash asm("r2") = &this->hash;
         register nds_SHA1context* s_context asm("r3") = &this->context;
         register void* r_hash asm("r0") = s_hash;
@@ -63,16 +63,5 @@ namespace porklib::crypto::digest {
         : "r" (r_hash), "r" (r_context)
         );*/
     }
-#else
-    void SHA1::init() {
-    }
-    void SHA1::update(const void* data, u_size length) {
-    }
-    void SHA1::finish() {
-    }
 #endif
-
-    u_size SHA1::size() {
-        return 20;
-    }
 }
