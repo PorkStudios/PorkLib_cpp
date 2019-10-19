@@ -57,6 +57,23 @@ namespace porklib::binary {
         u_size m_readerIndex = 0;
         u_size m_writerIndex = 0;
     };
+
+    /**
+     * Superclass for channels which allow reading and writing of packets.
+     */
+    struct Channel {
+        virtual ~Channel() = default;
+
+        /**
+         * Checks whether this channel is currently open.
+         */
+        virtual bool isOpen() = 0;
+
+        /**
+         * Closes the channel, doing nothing if the channel is already closed (or closing).
+         */
+        virtual void close() = 0;
+    };
 }
 
 #endif //PORKLIB_CPP_BINARY_H

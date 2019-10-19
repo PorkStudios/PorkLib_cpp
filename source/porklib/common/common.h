@@ -47,7 +47,7 @@ namespace porklib {
      * @param dst the first address to start copying to
      * @param bytes the number of bytes to copy
      */
-    void copy(void* const src, void* const dst, u_size bytes);
+    void copy(const void* const src, void* const dst, u_size bytes);
 
     /**
      * A type that contains a number of values.

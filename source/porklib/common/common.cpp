@@ -28,7 +28,7 @@ namespace porklib {
         }
     }
 
-    void copy(void* const src, void* const dst, u_size bytes) {
+    void copy(const void* const src, void* const dst, u_size bytes) {
         //TODO: fast assembly implementations for various platforms
         while (bytes--) {
             ((u8* const) dst)[bytes] = ((u8* const) src)[bytes];

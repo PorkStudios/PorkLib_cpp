@@ -43,6 +43,7 @@ namespace porklib::crypto::digest {
         }
 
         void update(const void* data, u_size length) final {
+            //TODO: implement this
             this->ml += length * 8;
             uword fragment_size = this->fragment_size;
             if (fragment_size != 0 && fragment_size + length >= 0x40)   {
@@ -57,7 +58,7 @@ namespace porklib::crypto::digest {
             for (uword j = length >> 6; j--;)   {
                 u32 w[80];
                 for (uword i = 16; i < 80; i++) {
-                    w[i] = porklib::math::rol(w[i - 3] ^ w[i - 3] ^ w[i - 3] ^ w[i - 3], 1);
+                    w[i] = math::rol(w[i - 3] ^ w[i - 3] ^ w[i - 3] ^ w[i - 3], 1);
                 }
 
                 u32 a = this->h[0];
