@@ -1,6 +1,7 @@
 #ifndef PORKLIB_CPP_DEV_COMMON_H
 #define PORKLIB_CPP_DEV_COMMON_H
 
+#include <functional>
 #include "porklib/types.h"
 
 namespace porklib {
@@ -21,7 +22,15 @@ namespace porklib {
      * @param text the text
      * @return the length of the text
      */
-    word lengthOf(const char* text);
+    u_size lengthOf(const char* text);
+
+    /**
+     * Allocates a duplicate char sequence with the same contents as the original.
+     *
+     * @param original the original char sequence
+     * @return the duplicate
+     */
+    char* strCopy(const char* original);
 
     /**
      * Formats the given string with the given arguments into a single NUL-terminated output string.
@@ -109,7 +118,7 @@ namespace porklib {
          *
          * @param function the function to run
          */
-        virtual void forEach(Consumer <T> function) = 0;
+        virtual void forEach(const std::function<void (T)>& function) = 0;
 
         /**
          * @return the number of elements in this collection
@@ -161,12 +170,12 @@ namespace porklib {
          */
         virtual u_size indexOf(T value) = 0;
 
-        void forEach(Consumer <T> function) override = 0;
+        void forEach(const std::function<void (T)>& function) override = 0;
         u_size size() override = 0;
         void clear() override = 0;
     };
 
-    template<typename T, Consumer <T> DESTROY = lambda::noop_Consumer> struct ArrayList: List<T> {
+    template<typename T, Consumer <T> DESTROY = lambda::noop, Function<u_size, u_size> GROWER = lambda::lsh1> struct ArrayList: List<T> {
     private:
         T* data;
         u_size capacity;
@@ -180,12 +189,16 @@ namespace porklib {
         };
 
         bool add(T value) override {
+            auto data = this->data;
             if (this->m_size == this->capacity) {
-                T* old_data = this->data;
-                copy(old_data, this->data = new T[this->capacity <<= 1], this->m_size * sizeof(T));
-                delete old_data;
+                auto old_data = data;
+                this->data = data = new T[this->capacity = GROWER(this->capacity)];
+                if (old_data) {
+                    copy(old_data, data, this->m_size * sizeof(T));
+                    delete old_data;
+                }
             }
-            this->data[this->m_size++] = value;
+            data[this->m_size++] = value;
             return true;
         }
 
@@ -202,7 +215,7 @@ namespace porklib {
             throw "unimplemented";
         }
 
-        void forEach(Consumer <T> function) override {
+        void forEach(const std::function<void (T)>& function) override {
             for (u_size i = 0; i < this->m_size; i++) {
                 function(this->data[i]);
             }

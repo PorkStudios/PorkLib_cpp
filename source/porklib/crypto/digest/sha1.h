@@ -57,8 +57,9 @@ namespace porklib::crypto::digest {
         void sha1_round(const u8* data, u_size length) {
             for (uword j = length >> 6; j--;)   {
                 u32 w[80];
+                copy(data, &w, 64);
                 for (uword i = 16; i < 80; i++) {
-                    w[i] = math::rol(w[i - 3] ^ w[i - 3] ^ w[i - 3] ^ w[i - 3], 1);
+                    w[i] = math::rol(w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16], (u32) 1);
                 }
 
                 u32 a = this->h[0];

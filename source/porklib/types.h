@@ -49,8 +49,14 @@ namespace porklib {
     template<typename A> using Equals = BiPredicate<A>;
 
     namespace lambda {
-        template<typename A> void noop_Consumer(A a) {}
-        template<typename A, typename B> void noop_BiConsumer(A a, B b) {}
+        template<typename A> void noop(A a) {}
+        template<typename A, typename B> void noop(A a, B b) {}
+
+        template<typename A, A AMOUNT> A add(A value) { return value + AMOUNT; }
+        template<typename A, A FACTOR> A multiply(A value) { return value * FACTOR; }
+        template<typename A> A lsh1(A value) { return value << 1; }
+
+        template<typename A> A identity(A value) { return value; }
     }
 }
 

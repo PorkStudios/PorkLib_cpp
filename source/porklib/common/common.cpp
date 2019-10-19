@@ -1,16 +1,20 @@
 #include "common.h"
 
-#include <cstring>
 #include <cstdarg>
 #include <cstdio>
 
 namespace porklib {
-    word lengthOf(const char* text) {
-        word i = 0;
-        while (text[i] != 0) {
-            i++;
-        }
-        return i;
+    u_size lengthOf(const char* text) {
+        u_size i = 0;
+        while (text[i++]);
+        return i - 1;
+    }
+
+    char* strCopy(const char* original) {
+        u_size len = lengthOf(original) + 1;
+        char* dst = new char[len];
+        copy(original, dst, len);
+        return dst;
     }
 
     const char* fmt(const char* format, ...) {
