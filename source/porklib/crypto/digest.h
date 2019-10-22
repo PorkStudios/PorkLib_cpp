@@ -4,6 +4,13 @@
 #include <porklib/binary/binary.h>
 
 namespace porklib::crypto {
+    /**
+     * A wrapper around a digest algorithm implementation.
+     * <p>
+     * This allows for more easily pluggable digests, since the underlying is invoked using virtual method calls.
+     *
+     * @author DaPorkchop_
+     */
     struct Digest {
         Digest() = default;
         virtual ~Digest() = default;

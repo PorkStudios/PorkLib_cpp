@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include <sys/param.h>
-#include <byteswap.h>
 
 #ifndef BYTE_ORDER
 #error "BYTE_ORDER not defined"
@@ -79,8 +78,8 @@ namespace porklib {
         operator u16 () { return this->v; }
         u16& operator = (u16 v) { return this->v = v; }
         #else
-        operator u16 () { return __bswap_16(this->v); }
-        u16& operator = (u16 v) { return this->v = __bswap_16(v); }
+        operator u16 () { return __builtin_bswap16(this->v); }
+        u16& operator = (u16 v) { return this->v = __builtin_bswap16(v); }
         #endif
 
         u16_le() {}
@@ -93,8 +92,8 @@ namespace porklib {
         operator u32 () { return this->v; }
         u32& operator = (u32 v) { return this->v = v; }
         #else
-        operator u32 () { return __bswap_32(this->v); }
-        u32& operator = (u32 v) { return this->v = __bswap_32(v); }
+        operator u32 () { return __builtin_bswap32(this->v); }
+        u32& operator = (u32 v) { return this->v = __builtin_bswap32(v); }
         #endif
 
         u32_le() {}
@@ -107,8 +106,8 @@ namespace porklib {
         operator u64 () { return this->v; }
         u64& operator = (u64 v) { return this->v = v; }
         #else
-        operator u64 () { return __bswap_64(this->v); }
-        u64& operator = (u64 v) { return this->v = __bswap_64(v); }
+        operator u64 () { return __builtin_bswap64(this->v); }
+        u64& operator = (u64 v) { return this->v = __builtin_bswap64(v); }
         #endif
 
         u64_le() {}
@@ -121,8 +120,8 @@ namespace porklib {
         operator i16 () { return this->v; }
         i16& operator = (i16 v) { return this->v = v; }
         #else
-        operator i16 () { return __bswap_16(this->v); }
-        i16& operator = (i16 v) { return this->v = __bswap_16(v); }
+        operator i16 () { return __builtin_bswap16(this->v); }
+        i16& operator = (i16 v) { return this->v = __builtin_bswap16(v); }
         #endif
 
         i16_le() {}
@@ -135,8 +134,8 @@ namespace porklib {
         operator i32 () { return this->v; }
         i32& operator = (i32 v) { return this->v = v; }
         #else
-        operator i32 () { return __bswap_32(this->v); }
-        i32& operator = (i32 v) { return this->v = __bswap_32(v); }
+        operator i32 () { return __builtin_bswap32(this->v); }
+        i32& operator = (i32 v) { return this->v = __builtin_bswap32(v); }
         #endif
 
         i32_le() {}
@@ -149,8 +148,8 @@ namespace porklib {
         operator i64 () { return this->v; }
         i64& operator = (i64 v) { return this->v = v; }
         #else
-        operator i64 () { return __bswap_64(this->v); }
-        i64& operator = (i64 v) { return this->v = __bswap_64(v); }
+        operator i64 () { return __builtin_bswap64(this->v); }
+        i64& operator = (i64 v) { return this->v = __builtin_bswap64(v); }
         #endif
 
         i64_le() {}
@@ -163,8 +162,8 @@ namespace porklib {
         operator u16 () { return this->v; }
         u16& operator = (u16 v) { return this->v = v; }
         #else
-        operator u16 () { return __bswap_16(this->v); }
-        u16& operator = (u16 v) { return this->v = __bswap_16(v); }
+        operator u16 () { return __builtin_bswap16(this->v); }
+        u16& operator = (u16 v) { return this->v = __builtin_bswap16(v); }
         #endif
 
         u16_be() {}
@@ -177,8 +176,8 @@ namespace porklib {
         operator u32 () { return this->v; }
         u32& operator = (u32 v) { return this->v = v; }
         #else
-        operator u32 () { return __bswap_32(this->v); }
-        u32& operator = (u32 v) { return this->v = __bswap_32(v); }
+        operator u32 () { return __builtin_bswap32(this->v); }
+        u32& operator = (u32 v) { return this->v = __builtin_bswap32(v); }
         #endif
 
         u32_be() {}
@@ -191,8 +190,8 @@ namespace porklib {
         operator u64 () { return this->v; }
         u64& operator = (u64 v) { return this->v = v; }
         #else
-        operator u64 () { return __bswap_64(this->v); }
-        u64& operator = (u64 v) { return this->v = __bswap_64(v); }
+        operator u64 () { return __builtin_bswap64(this->v); }
+        u64& operator = (u64 v) { return this->v = __builtin_bswap64(v); }
         #endif
 
         u64_be() {}
@@ -205,8 +204,8 @@ namespace porklib {
         operator i16 () { return this->v; }
         i16& operator = (i16 v) { return this->v = v; }
         #else
-        operator i16 () { return __bswap_16(this->v); }
-        i16& operator = (i16 v) { return this->v = __bswap_16(v); }
+        operator i16 () { return __builtin_bswap16(this->v); }
+        i16& operator = (i16 v) { return this->v = __builtin_bswap16(v); }
         #endif
 
         i16_be() {}
@@ -219,8 +218,8 @@ namespace porklib {
         operator i32 () { return this->v; }
         i32& operator = (i32 v) { return this->v = v; }
         #else
-        operator i32 () { return __bswap_32(this->v); }
-        i32& operator = (i32 v) { return this->v = __bswap_32(v); }
+        operator i32 () { return __builtin_bswap32(this->v); }
+        i32& operator = (i32 v) { return this->v = __builtin_bswap32(v); }
         #endif
 
         i32_be() {}
@@ -233,8 +232,8 @@ namespace porklib {
         operator i64 () { return this->v; }
         i64& operator = (i64 v) { return this->v = v; }
         #else
-        operator i64 () { return __bswap_64(this->v); }
-        i64& operator = (i64 v) { return this->v = __bswap_64(v); }
+        operator i64 () { return __builtin_bswap64(this->v); }
+        i64& operator = (i64 v) { return this->v = __builtin_bswap64(v); }
         #endif
 
         i64_be() {}

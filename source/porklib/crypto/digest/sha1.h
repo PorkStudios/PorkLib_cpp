@@ -19,6 +19,10 @@ namespace porklib::crypto::digest {
     };
     #endif
 
+    /*struct SHA1 {
+
+    };*/
+
     struct SHA1: Digest {
         #ifdef DSI
         nds_SHA1context context = nds_SHA1context();
