@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <sys/param.h>
 
+#include <porklib/builtins.h>
+
 #ifndef BYTE_ORDER
 #error "BYTE_ORDER not defined"
 #endif

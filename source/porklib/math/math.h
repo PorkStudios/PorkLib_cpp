@@ -42,15 +42,7 @@ namespace porklib::math {
     template<typename T> T min(T a, T b) { return a < b ? a : b; }
     template<typename T> T clamp(T val, T min, T max) { return min(max(val, min), max); }
 
-    template<typename T> inline T ror(T value, T amount) {
-        const unsigned int mask = (sizeof(T) * 8 - 1);
-        amount &= mask;
-        return (value << amount) | (value >> ((-amount) & mask));
-    }
-
-    template<typename T> inline T rol(T value, T amount) {
-        return ror(value, -amount);
-    }
+    inline u32 rol(u32 value, u32 i) { return __rold(value, i); }
 }
 
 #include <porklib/math/vectors.h>
